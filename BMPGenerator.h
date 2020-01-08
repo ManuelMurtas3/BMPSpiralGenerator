@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "colors.h"
 #include "bmpExceptions.h"
+#include "position.h"
 
 class GenerateBMP
 {
@@ -118,6 +119,16 @@ class GenerateBMP
 			binFile.write((char*)&green, 1);
 			binFile.write((char*)&blue, 1);
 			binFile.write((char*)&end, 1);
+		}
+
+        void writePixel(Position* pos, Color color)
+		{
+			this->writePixel(pos->getx(), pos->gety(), color);
+		}
+
+        void writePixel(Position pos, Color color)
+		{
+			this->writePixel(pos.getx(), pos.gety(), color);
 		}
 
         void endGeneration()

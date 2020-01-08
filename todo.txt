@@ -1,0 +1,3 @@
+check for new constants to add in the constants.h file
+
+create position exceptions
