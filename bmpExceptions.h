@@ -26,4 +26,12 @@ class InvalidBMPDimensionException : public std::exception
     }
 }invalidBMPDimensionException;
 
+class OutOfBoundsPositionException : public std::exception
+{
+    virtual const char* what() const throw()
+    {
+        return "Bad position, the pixel position requested is out of the image bounds";
+    }
+}outOfBoundsPositionException;
+
 #endif

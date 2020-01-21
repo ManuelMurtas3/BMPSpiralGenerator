@@ -43,7 +43,11 @@ class Position
             {
                 this->moveTo(this->x + 1, this->y);
             }
-            //TODO POSITION EXCEPTION
+            else
+            {
+                throw outOfBoundsPositionException;
+            }
+            
         }
 
         void goLeft()
@@ -52,7 +56,10 @@ class Position
             {
                 this->moveTo(this->x - 1, this->y);
             }
-            //TODO POSITION EXCEPTION
+            else
+            {
+                throw outOfBoundsPositionException;
+            }
         }
 
         void goUp()
@@ -61,7 +68,10 @@ class Position
             {
                 this->moveTo(this->x, this->y - 1);
             }
-            //TODO POSITION EXCEPTION
+            else
+            {
+                throw outOfBoundsPositionException;
+            }
         }
 
         void goDown()
@@ -70,7 +80,10 @@ class Position
             {
                 this->moveTo(this->x, this->y + 1);
             }
-            //TODO POSITION EXCEPTION
+            else
+            {
+                throw outOfBoundsPositionException;
+            }
         }
 };
 

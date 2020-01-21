@@ -96,16 +96,6 @@ class GenerateBMP
             //end of bmp pregeneration
         }
 
-        /*void InitPixels(Color color)
-        {
-            char red = color.getRed(), green = color.getGreen(), blue = color.getBlue(), end = 255;
-            
-            binFile.write((char*)&red, 1);
-            binFile.write((char*)&green, 1);
-            binFile.write((char*)&blue, 1);
-            binFile.write((char*)&end, 1);
-        }*/
-
 		void writePixel(unsigned short int column, unsigned short int row, Color color)
 		{
 			row = this->height - 1 - row;
