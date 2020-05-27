@@ -9,11 +9,40 @@
 
 using std::cout;
 
+void printGoingDirection(int dir)
+{
+    cout << "Going: ";
+    switch (dir)
+    {
+        case Position::UP:
+        {
+            cout << "UP";
+            break;
+        }
+        case Position::DOWN:
+        {
+            cout << "DOWN";
+            break;
+        }
+        case Position::LEFT:
+        {
+            cout << "LEFT";
+            break;
+        }
+        case Position::RIGHT:
+        {
+            cout << "RIGHT";
+            break;
+        }
+    }
+    cout << "\n";
+}
+
 bool isPrime(int n)
 {
-    for(int i = 2; i <= n/2; ++i)
+    for (int i = 2; i <= n / 2; ++i)
     {
-        if(n % i == 0)
+        if (n % i == 0)
         {
             return true;
         }
@@ -24,16 +53,16 @@ bool isPrime(int n)
 
 int main(int argc, char **argv)
 {
-    if(argc == 4) //program width height image_filename
+    if (argc == 4) //program width height image_filename
     {
-        if(atoi(argv[1]) == atoi(argv[2])) //has to be a squared image
+        if (atoi(argv[1]) == atoi(argv[2])) //has to be a squared image
         {
             const int directions[MAXNDIR] = {Position::RIGHT, Position::UP, Position::LEFT, Position::DOWN};
-            int directionIndex = 0;
+            int directionIndex = -1;
             const int side = atoi(argv[1]);
 
             GenerateBMP bmp(side, side, argv[3]);
-            int matrix[3][3] = {0};
+            int matrix[5][5] = {0};
 
             Position currentPosition(floor((side - 1) / 2), ceil((side - 1) / 2.0));
 
@@ -41,78 +70,70 @@ int main(int argc, char **argv)
             int totalNumberOfDirectionChanges = 2 * side - 1;
             int stepsBeforeChangeDirection = 1;
             int stepsBeforeStepAmountChange = 2;
-            int currentAmountOfSteps = 0;
+            int stepsAmount = 0;
+            int currentTotalStepsAmount = 0;
 
-            for(int i = 0; i < (side * side) - 1; i++)
+            for (int i = 0; i < side * side; i++)
             {
                 cout << "Row: " << currentPosition.gety() << " | Column: " << currentPosition.getx() << "\n";
+                cout << "Writing: " << numberToWrite << "\n";
                 matrix[currentPosition.gety()][currentPosition.getx()] = numberToWrite;
 
-                if(isPrime(numberToWrite))
+                if (isPrime(numberToWrite))
                 {
                     bmp.writePixel(currentPosition, BLACK);
                 }
 
                 numberToWrite++;
-                currentAmountOfSteps++;
+                stepsAmount++;
+                currentTotalStepsAmount++;
 
-                if(currentAmountOfSteps % stepsBeforeChangeDirection == 0)
+                if (stepsAmount <= stepsBeforeChangeDirection)
                 {
                     directionIndex = (directionIndex + 1) % MAXNDIR;
 
                     try
                     {
                         currentPosition.moveTo(directions[directionIndex]);
-                        cout << "Going: ";
-                        switch (directions[directionIndex])
-                        {
-                            case Position::UP:
-                            {
-                                cout << "up";
-                                break;
-                            }
-                            case Position::DOWN:
-                            {
-                                cout << "up";
-                                break;
-                            }
-                            case Position::LEFT:
-                            {
-                                cout << "up";
-                                break;
-                            }
-                            case Position::RIGHT:
-                            {
-                                cout << "up";
-                                break;
-                            }
-                        }
+                        printGoingDirection(directions[directionIndex]);
                     }
-                    catch(const std::exception& e)
+                    catch (const std::exception &e)
                     {
                         std::cerr << e.what() << '\n';
                     }
 
-                    if(currentAmountOfSteps % stepsBeforeStepAmountChange == 0)
+                    if (currentTotalStepsAmount % stepsBeforeStepAmountChange == 0)
                     {
                         stepsBeforeChangeDirection++;
                         stepsBeforeStepAmountChange += 2;
                     }
                 }
-
-                //
-
-            }
-
-            for(int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
+                else
                 {
-                    cout << matrix[i][j] << " ";
+                    try
+                    {
+                        currentPosition.moveTo(directions[directionIndex]);
+                        printGoingDirection(directions[directionIndex]);
+                        stepsAmount = 0;
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cerr << e.what() << '\n';
+                    }
                 }
 
+                system("pause");
                 cout << "\n";
-                
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    cout << matrix[i][j] << "\t";
+                }
+
+                cout << "\n\n";
             }
 
             bmp.endGeneration();
@@ -121,7 +142,6 @@ int main(int argc, char **argv)
         {
             cout << "The image you want to generate isn't a square.\n";
         }
-        
     }
 
     return 0;
