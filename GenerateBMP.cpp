@@ -4,22 +4,38 @@
 #include "colors.h"
 #include "position.h"
 
-using namespace std;
+using std::cout;
 
 int main(int argc, char **argv)
 {
     if(argc == 4)
     {
-        const int height = atoi(argv[1]);
-        const int width = atoi(argv[2]);
+        if(atoi(argv[1]) == atoi(argv[2])) //has to be a squared image
+        {
+            const int side = atoi(argv[1]);
+            GenerateBMP bmp(side, side, argv[3]);
 
-        GenerateBMP bmp(height, width, argv[3]);
+            Position middle((side - 1) / 2, (side - 1) / 2);
 
-        Position middle((height - 1) / 2, (width - 1) / 2);
+            int x = (side - 1) / 2;
+            int y = (side - 1) / 2;
+            
+            int numberToWrite = 1;
+            int numberOfDirectionChanges = 2 * side - 1;
+            int incx = 1;
 
-        //TODO algorithm here
+            for(int i = 0; i < (side * side) - 1; i++)
+            {
+                //TODO
+            }
 
-        bmp.endGeneration();
+            bmp.endGeneration();
+        }
+        else
+        {
+            cout << "The image you want to generate isn't a square.\n";
+        }
+        
     }
 
     return 0;
