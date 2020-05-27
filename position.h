@@ -18,6 +18,11 @@ class Position
             this->y = y;
         }
         
+        static const int RIGHT = 0;
+        static const int UP = 1;
+        static const int LEFT = 2;
+        static const int DOWN = 3;
+
         unsigned short int getx() {return x;}
         unsigned short int gety() {return y;}
         
@@ -25,6 +30,37 @@ class Position
         {
             this->x = x;
             this->y = y;
+        }
+
+        void moveTo(int direction)
+        {
+            switch(direction)
+            {
+                case UP:
+                {
+                    this->goUp();
+                    break;
+                }
+
+                case DOWN:
+                {
+                    this->goDown();
+                    break;
+                }
+
+                case LEFT:
+                {
+                    this->goLeft();
+                    break;
+                }
+
+                case RIGHT:
+                {
+                    this->goRight();
+                    break;
+                }
+
+            }
         }
 
         void moveTo(Position* p)

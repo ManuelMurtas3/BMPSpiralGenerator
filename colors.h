@@ -97,10 +97,4 @@ class Color
     
 };
 
-Color red(255, 0, 0);
-Color green(0, 255, 0);
-Color blue(0, 0, 255);
-Color white(255, 255, 255);
-Color black(0, 0, 0);
-
 #endif
